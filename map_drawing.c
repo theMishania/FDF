@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_drawing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 10:39:42 by cocummin          #+#    #+#             */
-/*   Updated: 2018/12/29 17:07:02 by cocummin         ###   ########.fr       */
+/*   Updated: 2018/12/29 18:43:55 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void    line_drawing(void *mlx_ptr, void *win_ptr, t_point first, t_point second
         {
             // printf("1\n");
             tmp_y = (-a * tmp_x - c) / b;
-            mlx_pixel_put(mlx_ptr, win_ptr, tmp_x, tmp_y, 0xFFFFFF);
+            mlx_pixel_put(mlx_ptr, win_ptr, tmp_x, tmp_y, 0xF5F904);
             tmp_x += first.x <= second.x ? 1 : -1;
         }
     }
@@ -124,7 +124,7 @@ void    line_drawing(void *mlx_ptr, void *win_ptr, t_point first, t_point second
         {
             // printf("2\n");
             tmp_x = (-b * tmp_y - c) / a;
-            mlx_pixel_put(mlx_ptr, win_ptr, tmp_x, tmp_y, 0xFFFFFF);
+            mlx_pixel_put(mlx_ptr, win_ptr, tmp_x, tmp_y, 0xF5F904);
             tmp_y += first.y <= second.y ? 1 : -1;
         }
     }

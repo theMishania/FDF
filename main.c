@@ -26,21 +26,11 @@ void provider(int key)
 	int i = 0;
 	int j;
 
-	if (transform.alpha == 0) 
+	if (!mlx_ptr)
 	{
 		mlx_ptr = mlx_init();
 		win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "NICEEEEEE");
 		transform.scale = 30;
-		while (i < 1000)
-		{
-			j = 0;
-			while (j < 1000)
-			{
-				mlx_pixel_put(mlx_ptr, win_ptr, i, j, 0x000000);//0x4D4D4C);
-				j++;
-			}
-			i++;
-		}
 	}
 	printf("HEREEEE?1111\n");
 	mlx_clear_window(mlx_ptr, win_ptr);
@@ -48,36 +38,48 @@ void provider(int key)
 	printf("HEREEEE?222\n");
 	int arr[5][5] =
 	{
-		1, 0, 0, 0, -1,
+		1, 0, 0, 0, -0,
 		0, 2, 2, 2, 0,
 		0, 2, -1, 2, 0,
 		0, 2, 2, 2, 0,
-		-1, -0, 0, 0, -1
+		-0, -0, 0, 0, -0
 	};
 	printf("HEREEEE?333\n");
-	transform.alpha = M_PI / 2;
+	//transform.alpha = M_PI / 2;
 	 //beta = M_PI / 6;
 	 //gamma = M_PI / 2;
 	// printf("beta = %lf\n", beta);
 	// printf("gamma = %lf\n", gamma);
 	printf("HEREEEE?4444\n");
 	if (key == 0x7B || key == 0x7C) // Left or right arrow pressed
+	{
 		if (key == 0x7C)
-			transform.gamma +=  (M_PI / 18);
-		else
-			transform.gamma -=  (M_PI / 18);
-
-	if (key == 0x7E || key == 0x7D)//Op or dow arrow pressed
-		if (key == 0x7E)
 			transform.beta +=  (M_PI / 18);
 		else
 			transform.beta -=  (M_PI / 18);
+	}
+
+	if (key == 0x7E || key == 0x7D)//Op or dow arrow pressed
+	{
+		if (key == 0x7E)
+			transform.gamma +=  (M_PI / 18);
+		else
+			transform.gamma -=  (M_PI / 18);
+	}
 	
 	if (key == 0x1B || key == 0x18)
+	{
 		if (key == 0x1B)
-			transform.scale--;
+			transform.scale -= 10;
 		else
-			transform.scale++;
+			transform.scale += 10;
+	}
+
+	if (key == 0x58 || key == 0x56)
+		if (key == 0x58)
+			transform.alpha += (M_PI / 18);
+		else
+			transform.alpha -= (M_PI / 18);
 
 	printf("HEREEEE?55555\n");
 	map_drawing(mlx_ptr, win_ptr, arr, &transform);

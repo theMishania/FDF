@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_drawing.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 15:00:39 by cocummin          #+#    #+#             */
-/*   Updated: 2018/12/29 17:05:49 by cocummin         ###   ########.fr       */
+/*   Updated: 2018/12/29 18:47:23 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ typedef struct s_transform
 }               t_transform;
 
 void    map_drawing(void *mlx_ptr, void *win_ptr, int arr[5][5], t_transform *transform);
-void provider(int key);
+void    provider(int key);
 void    line_drawing(void *mlx_ptr, void *win_ptr, t_point first, t_point second);
 t_point *t_point_init(int x, int y, int z, t_transform transform);
