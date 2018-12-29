@@ -32,10 +32,8 @@ void provider(int key)
 		win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "NICEEEEEE");
 		transform.scale = 30;
 	}
-	printf("HEREEEE?1111\n");
 	mlx_clear_window(mlx_ptr, win_ptr);
 	/*    /\      */
-	printf("HEREEEE?222\n");
 	int arr[5][5] =
 	{
 		1, 0, 0, 0, -0,
@@ -44,13 +42,6 @@ void provider(int key)
 		0, 2, 2, 2, 0,
 		-0, -0, 0, 0, -0
 	};
-	printf("HEREEEE?333\n");
-	//transform.alpha = M_PI / 2;
-	 //beta = M_PI / 6;
-	 //gamma = M_PI / 2;
-	// printf("beta = %lf\n", beta);
-	// printf("gamma = %lf\n", gamma);
-	printf("HEREEEE?4444\n");
 	if (key == 0x7B || key == 0x7C) // Left or right arrow pressed
 	{
 		if (key == 0x7C)
@@ -81,13 +72,8 @@ void provider(int key)
 		else
 			transform.alpha -= (M_PI / 18);
 
-	printf("HEREEEE?55555\n");
 	map_drawing(mlx_ptr, win_ptr, arr, &transform);
-	printf("HEREEEE?66666\n");
-	//Q += (M_PI / 72);
-	//beta +=  (M_PI / 18);
-	
-	//mlx_string_put(mlx_ptr, win_ptr, 252, 252, 0xFFFFFF, "0");
+
 	mlx_key_hook(win_ptr, deal_key, (void *)0);
 	mlx_loop(mlx_ptr);
 
