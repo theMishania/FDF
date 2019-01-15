@@ -43,6 +43,7 @@ void provider(int key, char *file_name)
 {
 	static void *mlx_ptr;
 	static void *win_ptr;
+	static void *image;
 
 	static t_transform transform;
 	static t_map map_struct;
@@ -54,13 +55,22 @@ void provider(int key, char *file_name)
 	{
 		mlx_ptr = mlx_init();
 		win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "NICEEEEEE");
+		image = mlx_new_image(mlx_ptr, 1000, 1000);
+
+
 		transform.scale = 30;
-	transform.proj_type = 0;
-	transform.delta_x = 500;
-	transform.delta_y = 500;
+		transform.proj_type = 0;
+		transform.delta_x = 500;
+		transform.delta_y = 500;
 		transform.color_on  = 0;
 		read_map(file_name, &map_struct);
 		get_main_n_max_alt(&map_struct);
+		
+		int bytes = 8;
+		int len = 1000;
+		int endian = 0;
+		map_struct.image_data = mlx_get_data_addr(image, &bytes, &len, &endian);
+		//mlx_put_image_to_window(mlx_ptr, win_ptr, image, 0, 0);
 	}
 	mlx_clear_window(mlx_ptr, win_ptr);
 
@@ -175,7 +185,8 @@ if (key == 0x7B || key == 0x7C) // Left or right arrow pressed
 			transform.delta_x -=20;// a
 	}*/
 	map_drawing(mlx_ptr, win_ptr, &map_struct, &transform);
-
+	mlx_clear_window(mlx_ptr, win_ptr);
+	mlx_put_image_to_window(mlx_ptr, win_ptr, image, 0, 0);
 	mlx_key_hook(win_ptr, deal_key, (void *)0);
 	mlx_loop(mlx_ptr);
 

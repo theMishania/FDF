@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_drawing.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 19:44:33 by chorange          #+#    #+#             */
-/*   Updated: 2019/01/04 20:01:12 by chorange         ###   ########.fr       */
+/*   Updated: 2019/01/15 18:56:30 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ typedef struct s_map
 	int n;
 	int min_alt;
 	int max_alt;
+
+	char *image_data;
 }				t_map;
 
 typedef struct s_point
@@ -45,6 +47,8 @@ int scale;
 
 void    map_drawing(void *mlx_ptr, void *win_ptr, t_map *map_struct, t_transform *transform);
 void	provider(int key, char *file_name);
-void	line_drawing(void *mlx_ptr, void *win_ptr, t_point first, t_point second);
+void	line_drawing(void *mlx_ptr, void *win_ptr, t_point first, t_point second, char *image_data);
 t_point t_point_init(int x, int y, t_map *map_struct, t_transform transform);
 void	read_map(char *file_name, t_map *map_struct);
+void    put_point_to_image(char *image_data, int x, int y, int color);
+void    clear_image_data(char *image_data);
