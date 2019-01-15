@@ -185,7 +185,6 @@ if (key == 0x7B || key == 0x7C) // Left or right arrow pressed
 			transform.delta_x -=20;// a
 	}*/
 	map_drawing(mlx_ptr, win_ptr, &map_struct, &transform);
-	mlx_clear_window(mlx_ptr, win_ptr);
 	mlx_put_image_to_window(mlx_ptr, win_ptr, image, 0, 0);
 	mlx_key_hook(win_ptr, deal_key, (void *)0);
 	mlx_loop(mlx_ptr);
