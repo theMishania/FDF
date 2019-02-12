@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_drawing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 10:39:42 by cocummin          #+#    #+#             */
-/*   Updated: 2019/02/08 20:46:30 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/12 22:06:57 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void    clear_image_data(char *image_data)
 
 
 
-void    map_drawing(void *mlx_ptr, void *win_ptr, t_map *map_struct, t_transform *transform)
+void    map_drawing(the_fdf *fdf)
 {
     int i;
     int j;
@@ -58,16 +58,16 @@ void    map_drawing(void *mlx_ptr, void *win_ptr, t_map *map_struct, t_transform
 
 static int points_count;
 
-    clear_image_data(map_struct->image_data);
+    clear_image_data(fdf->map_struct.image_data);
     i = 0;
-    while (i < map_struct->n)
+    while (i < fdf->map_struct.n)
     {
         j = 0;
-        while (j < map_struct->m)
+        while (j < fdf->map_struct.m)
         {
             if (i == 0 && j == 0)
                 points_count = 0;
-            main_point = t_point_init(j, i, map_struct, *transform);
+            main_point = t_point_init(j, i, &(fdf->map_struct), fdf->transform);
             if (main_point.alt_255 == 1000)
             {
                 j++;
@@ -75,19 +75,19 @@ static int points_count;
             }
             //printf("point %d\nx %d\n", points_count, main_point.x);
             //printf("y %d\n\n", main_point.y);
-            if (j != map_struct->m - 1)
+            if (j != fdf->map_struct.m - 1)
             {
-                right_point = t_point_init(j + 1, i, map_struct, *transform);
+                right_point = t_point_init(j + 1, i, &(fdf->map_struct), fdf->transform);
                if ((main_point.x <= IMAGE_WIDTH && main_point.x >=0 && main_point.y <= IMAGE_HEIGHT && main_point.y >= 0) || 
                         (right_point.x <= IMAGE_WIDTH  && right_point.x >=0 && right_point.y <= IMAGE_HEIGHT && right_point.y >= 0))
-                line_drawing(mlx_ptr, win_ptr, main_point, right_point, map_struct->image_data);
+                line_drawing(fdf, main_point, right_point);//, fdf->map_struct.image_data);
             }
-            if (i != map_struct->n - 1)
+            if (i != fdf->map_struct.n - 1)
             {
-                down_point = t_point_init(j, i + 1, map_struct, *transform);
+                down_point = t_point_init(j, i + 1, &(fdf->map_struct), fdf->transform);
                 if ((main_point.x <= IMAGE_WIDTH && main_point.y <= IMAGE_HEIGHT && main_point.x >=0 && main_point.y >= 0) || 
                         (down_point.x <= IMAGE_WIDTH && down_point.y <= IMAGE_HEIGHT && down_point.x >=0 && down_point.y >= 0))
-                line_drawing(mlx_ptr, win_ptr, main_point, down_point, map_struct->image_data);
+                line_drawing(fdf, main_point, down_point);//, fdf->map_struct.image_data);
             }
             points_count++;
             j++;
@@ -170,7 +170,7 @@ t_point t_point_init(int x, int y, t_map *map_struct, t_transform transform)
 
 
 
-void    line_drow_x(void *mlx_ptr, void *win_ptr, t_point f, t_point s, char *image_data)
+static void    line_drow_x(the_fdf *fdf, t_point f, t_point s)
 {
     int     tmp_x;
     int     tmp_y;
@@ -195,13 +195,13 @@ void    line_drow_x(void *mlx_ptr, void *win_ptr, t_point f, t_point s, char *im
     {
         tmp_y = (-a * tmp_x - c) / b;
         //mlx_pixel_put(mlx_ptr, win_ptr, tmp_x, tmp_y, (f.alt_255 + (int)(step * i)) * 0x010000 + (255 - f.alt_255 - (int)(step * i)) * 0x000100);
-        put_point_to_image(image_data, tmp_x, tmp_y, (f.alt_255 + (int)(step * i)) * 0x010000 + (255 - f.alt_255 - (int)(step * i)) * 0x000100);
+        put_point_to_image(fdf->map_struct.image_data, tmp_x, tmp_y, (f.alt_255 + (int)(step * i)) * 0x010000 + (255 - f.alt_255 - (int)(step * i)) * 0x000100);
         tmp_x += f.x <= s.x ? 1 : -1;
         i++;
     }
 }
 
-void    line_drow_y(void *mlx_ptr, void *win_ptr, t_point f, t_point s, char *image_data)
+static void    line_drow_y(the_fdf *fdf, t_point f, t_point s)
 {
     int     tmp_x;
     int     tmp_y;
@@ -225,7 +225,7 @@ void    line_drow_y(void *mlx_ptr, void *win_ptr, t_point f, t_point s, char *im
     {
         tmp_x = (-b * tmp_y - c) / a;
         //mlx_pixel_put(mlx_ptr, win_ptr, tmp_x, tmp_y, (f.alt_255 + (int)(step * i)) * 0x010000 + (255 - f.alt_255 - (int)(step * i)) * 0x000100);
-        put_point_to_image(image_data, tmp_x, tmp_y, (f.alt_255 + (int)(step * i)) * 0x010000 + (255 - f.alt_255 - (int)(step * i)) * 0x000100);
+        put_point_to_image(fdf->map_struct.image_data, tmp_x, tmp_y, (f.alt_255 + (int)(step * i)) * 0x010000 + (255 - f.alt_255 - (int)(step * i)) * 0x000100);
         tmp_y += f.y <= s.y ? 1 : -1;
         i++;
     }
@@ -233,12 +233,13 @@ void    line_drow_y(void *mlx_ptr, void *win_ptr, t_point f, t_point s, char *im
 
 
 
-void    line_drawing(void *mlx_ptr, void *win_ptr, t_point f, t_point s, char *image_data)
+//void    line_drawing(void *mlx_ptr, void *win_ptr, t_point f, t_point s, char *image_data)
+void    line_drawing(the_fdf *fdf, t_point f, t_point s)
 {
     if ((ABS(f.x - s.x)) >= (ABS(f.y - s.y)))
-        line_drow_x(mlx_ptr, win_ptr, f, s, image_data);
+        line_drow_x(fdf, f, s);
     else
-        line_drow_y(mlx_ptr, win_ptr, f, s, image_data);
+        line_drow_y(fdf, f, s);
 }
 
 

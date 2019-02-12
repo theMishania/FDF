@@ -47,71 +47,74 @@ void	get_min_n_max_alt(t_map *map_struct)
 
 void provider(int key, char *file_name)
 {
-	static void *mlx_ptr;
-	static void *win_ptr;
-	static void *image;
 
-	static t_transform transform;
-	static t_map map_struct;
+	// static void *mlx_ptr;
+	// static void *win_ptr;
+	// static void *image;
+
+	// static t_transform transform;
+	// static t_map map_struct;
+
+	static the_fdf fdf;
 
 	int i = 0;
 	int j;
 
-	if (!mlx_ptr)
+	if (!fdf.mlx_ptr)
 	{
-		mlx_ptr = mlx_init();
-		win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "NICEEEEEE");
-		image = mlx_new_image(mlx_ptr, 1000, 1000);
+		fdf.mlx_ptr = mlx_init();
+		fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, 1000, 1000, "NICEEEEEE");
+		fdf.image = mlx_new_image(fdf.mlx_ptr, 1000, 1000);
 
 
-		transform.scale = 30;
-		transform.proj_type = 0;
-		transform.delta_x = 500;
-		transform.delta_y = 500;
-		transform.color_on  = 0;
-		read_map(file_name, &map_struct);
-		get_min_n_max_alt(&map_struct);
+		fdf.transform.scale = 30;
+		fdf.transform.proj_type = 0;
+		fdf.transform.delta_x = 500;
+		fdf.transform.delta_y = 500;
+		fdf.transform.color_on  = 0;
+		read_map(file_name, &(fdf.map_struct));
+		get_min_n_max_alt(&(fdf.map_struct));
 		
 		int bytes = 8;
 		int len = 1000;
 		int endian = 0;
-		map_struct.image_data = mlx_get_data_addr(image, &bytes, &len, &endian);
+		fdf.map_struct.image_data = mlx_get_data_addr(fdf.image, &bytes, &len, &endian);
 		//mlx_put_image_to_window(mlx_ptr, win_ptr, image, 0, 0);
 	}
-	mlx_clear_window(mlx_ptr, win_ptr);
+	mlx_clear_window(fdf.mlx_ptr, fdf.win_ptr);
 
 if (key == 53)
         exit(-2);
 if (key == 0x7B || key == 0x7C) // Left or right arrow pressed
 	{
 		if (key == 0x7C)
-			transform.beta +=  (M_PI / 56);
+			fdf.transform.beta +=  (M_PI / 56);
 		else
-			transform.beta -=  (M_PI / 56);
+			fdf.transform.beta -=  (M_PI / 56);
 	}
 
 	if (key == 0x7E || key == 0x7D)//Op or dow arrow pressed
 	{
 		if (key == 0x7E)
-			transform.gamma +=  (M_PI / 56);
+			fdf.transform.gamma +=  (M_PI / 56);
 		else
-			transform.gamma -=  (M_PI / 56);
+			fdf.transform.gamma -=  (M_PI / 56);
 	}
 	
 	if (key == 0x1B || key == 0x18)
 	{
 		if (key == 0x1B)
 		{
-			if (transform.scale >= 2)
+			if (fdf.transform.scale >= 2)
 			{
-				transform.scale -= 2;//-
+				fdf.transform.scale -= 2;//-
 			}
 		}
 		else
 		{
 			//if ((transform.proj_type == 0))
 			//{
-				transform.scale += 2;//+
+				fdf.transform.scale += 2;//+
 			//}
 		}
 			
@@ -119,36 +122,36 @@ if (key == 0x7B || key == 0x7C) // Left or right arrow pressed
 
 	if (key == 0x56 || key == 0x58)
 		if (key == 0x58)
-			transform.alpha += (M_PI / 56);//num 6
+			fdf.transform.alpha += (M_PI / 56);//num 6
 		else
-			transform.alpha -= (M_PI / 56);// num 4
+			fdf.transform.alpha -= (M_PI / 56);// num 4
 
 	if (key == 0x21)
-		if (!transform.proj_type)
+		if (!fdf.transform.proj_type)
 		{
-			if (transform.scale < 195)
-				transform.proj_type = 1; // num 5
+			if (fdf.transform.scale < 195)
+				fdf.transform.proj_type = 1; // num 5
 		}
 		else
-			transform.proj_type = 0;
+			fdf.transform.proj_type = 0;
 	if (key == 0x08)
-		if (!transform.color_on)// c
-			transform.color_on = 1;
+		if (!fdf.transform.color_on)// c
+			fdf.transform.color_on = 1;
 		else
-			transform.color_on = 0;
+			fdf.transform.color_on = 0;
 	if (key == 0x0D || key == 0x01)
 	{
 		if (key == 0x0D)
-			transform.delta_y -= 20;// w
+			fdf.transform.delta_y -= 20;// w
 		else
-			transform.delta_y +=20;// s
+			fdf.transform.delta_y +=20;// s
 	}
 		if (key == 0x00 || key == 0x02)
 	{
 		if (key == 0x02)
-			transform.delta_x += 20;// d
+			fdf.transform.delta_x += 20;// d
 		else
-			transform.delta_x -=20;// a
+			fdf.transform.delta_x -=20;// a
 	}
 
 /*
@@ -206,16 +209,16 @@ if (key == 0x7B || key == 0x7C) // Left or right arrow pressed
 		else
 			transform.delta_x -=20;// a
 	}*/
-	map_drawing(mlx_ptr, win_ptr, &map_struct, &transform);
-	mlx_put_image_to_window(mlx_ptr, win_ptr, image, 0, 0);
+	map_drawing(&fdf);
+	mlx_put_image_to_window(fdf.mlx_ptr, fdf.win_ptr, fdf.image, 0, 0);
 
-	mlx_hook(win_ptr, 2, 1L<<0, key_press, (void*)0);
+	mlx_hook(fdf.win_ptr, 2, 1L<<0, key_press, (void*)0);
 	//mlx_hook(fdf->win, 17, 1L << 17, close, fdf);
 	//mlx_hook(fdf->win, 4, 1L << 4, mouse_press, fdf);
 	//mlx_hook(fdf->win, 5, 1L << 5, mouse_release, fdf);
 	//mlx_hook(fdf->win, 6, 1L << 6, mouse_move, fdf);
 
-	mlx_loop(mlx_ptr);
+	mlx_loop(fdf.mlx_ptr);
 
 
 }

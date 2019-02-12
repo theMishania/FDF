@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_drawing.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 19:44:33 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/07 19:47:02 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/12 22:03:09 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,18 @@ int		delta_y;
 int scale;
 }   t_transform;
 
-void    map_drawing(void *mlx_ptr, void *win_ptr, t_map *map_struct, t_transform *transform);
+typedef struct 	s_fdf
+{
+	void		*mlx_ptr;
+	void		*win_ptr;
+	void		*image;
+	t_transform	transform;
+	t_map 		map_struct;
+}				the_fdf;
+
+void    map_drawing(the_fdf *fdf);
 void	provider(int key, char *file_name);
-void	line_drawing(void *mlx_ptr, void *win_ptr, t_point first, t_point second, char *image_data);
+void	line_drawing(the_fdf *fdf, t_point f, t_point s);
 t_point t_point_init(int x, int y, t_map *map_struct, t_transform transform);
 void	read_map(char *file_name, t_map *map_struct);
 void    put_point_to_image(char *image_data, int x, int y, int color);
