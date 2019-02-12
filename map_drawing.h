@@ -6,7 +6,7 @@
 /*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 19:44:33 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/12 22:03:09 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/12 22:32:42 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,3 +62,7 @@ void	read_map(char *file_name, t_map *map_struct);
 void    put_point_to_image(char *image_data, int x, int y, int color);
 void    clear_image_data(char *image_data);
 int	key_press(int key, void *param);
+void	key_utils(t_transform *transform, int key);
+void    norme_beater(t_transform *transform, int key);
+void    norminette_fight(t_transform *transform, int key);
+void    defeat_norm(t_transform *transform, int key);

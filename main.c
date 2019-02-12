@@ -83,76 +83,12 @@ void provider(int key, char *file_name)
 	}
 	mlx_clear_window(fdf.mlx_ptr, fdf.win_ptr);
 
-if (key == 53)
-        exit(-2);
-if (key == 0x7B || key == 0x7C) // Left or right arrow pressed
-	{
-		if (key == 0x7C)
-			fdf.transform.beta +=  (M_PI / 56);
-		else
-			fdf.transform.beta -=  (M_PI / 56);
-	}
-
-	if (key == 0x7E || key == 0x7D)//Op or dow arrow pressed
-	{
-		if (key == 0x7E)
-			fdf.transform.gamma +=  (M_PI / 56);
-		else
-			fdf.transform.gamma -=  (M_PI / 56);
-	}
+	key_utils(&(fdf.transform), key);
 	
-	if (key == 0x1B || key == 0x18)
-	{
-		if (key == 0x1B)
-		{
-			if (fdf.transform.scale >= 2)
-			{
-				fdf.transform.scale -= 2;//-
-			}
-		}
-		else
-		{
-			//if ((transform.proj_type == 0))
-			//{
-				fdf.transform.scale += 2;//+
-			//}
-		}
-			
-	}
+	
 
-	if (key == 0x56 || key == 0x58)
-		if (key == 0x58)
-			fdf.transform.alpha += (M_PI / 56);//num 6
-		else
-			fdf.transform.alpha -= (M_PI / 56);// num 4
-
-	if (key == 0x21)
-		if (!fdf.transform.proj_type)
-		{
-			if (fdf.transform.scale < 195)
-				fdf.transform.proj_type = 1; // num 5
-		}
-		else
-			fdf.transform.proj_type = 0;
-	if (key == 0x08)
-		if (!fdf.transform.color_on)// c
-			fdf.transform.color_on = 1;
-		else
-			fdf.transform.color_on = 0;
-	if (key == 0x0D || key == 0x01)
-	{
-		if (key == 0x0D)
-			fdf.transform.delta_y -= 20;// w
-		else
-			fdf.transform.delta_y +=20;// s
-	}
-		if (key == 0x00 || key == 0x02)
-	{
-		if (key == 0x02)
-			fdf.transform.delta_x += 20;// d
-		else
-			fdf.transform.delta_x -=20;// a
-	}
+	
+	
 
 /*
 	if (key == 0xff51 || key == 0xff53) // Left or right arrow pressed
