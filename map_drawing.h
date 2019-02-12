@@ -6,7 +6,7 @@
 /*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 19:44:33 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/12 22:32:42 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/12 22:39:56 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,3 +66,4 @@ void	key_utils(t_transform *transform, int key);
 void    norme_beater(t_transform *transform, int key);
 void    norminette_fight(t_transform *transform, int key);
 void    defeat_norm(t_transform *transform, int key);
+void	fdf_init(the_fdf *fdf, char *file_name);

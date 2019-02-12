@@ -45,42 +45,35 @@ void	get_min_n_max_alt(t_map *map_struct)
 	}
 }
 
+void	fdf_init(the_fdf *fdf, char *file_name)
+{
+	fdf->mlx_ptr = mlx_init();
+	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, 1000, 1000, "NICEEEEEE");
+	fdf->image = mlx_new_image(fdf->mlx_ptr, 1000, 1000);
+
+
+	fdf->transform.scale = 30;
+	fdf->transform.proj_type = 0;
+	fdf->transform.delta_x = 500;
+	fdf->transform.delta_y = 500;
+	fdf->transform.color_on  = 0;
+	read_map(file_name, &(fdf->map_struct));
+	get_min_n_max_alt(&(fdf->map_struct));
+		
+	int bytes = 8;
+	int len = 1000;
+	int endian = 0;
+	fdf->map_struct.image_data = mlx_get_data_addr(fdf->image, &bytes, &len, &endian);
+}
+
 void provider(int key, char *file_name)
 {
-
-	// static void *mlx_ptr;
-	// static void *win_ptr;
-	// static void *image;
-
-	// static t_transform transform;
-	// static t_map map_struct;
-
 	static the_fdf fdf;
-
 	int i = 0;
 	int j;
 
 	if (!fdf.mlx_ptr)
-	{
-		fdf.mlx_ptr = mlx_init();
-		fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, 1000, 1000, "NICEEEEEE");
-		fdf.image = mlx_new_image(fdf.mlx_ptr, 1000, 1000);
-
-
-		fdf.transform.scale = 30;
-		fdf.transform.proj_type = 0;
-		fdf.transform.delta_x = 500;
-		fdf.transform.delta_y = 500;
-		fdf.transform.color_on  = 0;
-		read_map(file_name, &(fdf.map_struct));
-		get_min_n_max_alt(&(fdf.map_struct));
-		
-		int bytes = 8;
-		int len = 1000;
-		int endian = 0;
-		fdf.map_struct.image_data = mlx_get_data_addr(fdf.image, &bytes, &len, &endian);
-		//mlx_put_image_to_window(mlx_ptr, win_ptr, image, 0, 0);
-	}
+		fdf_init(&fdf, file_name);
 	mlx_clear_window(fdf.mlx_ptr, fdf.win_ptr);
 
 	key_utils(&(fdf.transform), key);
