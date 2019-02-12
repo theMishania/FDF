@@ -6,7 +6,7 @@
 /*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 19:44:33 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/12 22:39:56 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/12 23:14:34 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,24 @@ typedef struct 	s_fdf
 	t_map 		map_struct;
 }				the_fdf;
 
+typedef struct s_variables
+{
+	int     tmp_x;
+    int     tmp_y;
+    int     i;
+    double  step;
+    int     a;
+    int     b;
+    int     c;
+}				t_variables;
+
+typedef struct s_matrix
+{
+	int x;
+	int y;
+	int z;
+}			t_matrix;
+
 void    map_drawing(the_fdf *fdf);
 void	provider(int key, char *file_name);
 void	line_drawing(the_fdf *fdf, t_point f, t_point s);
@@ -67,3 +85,4 @@ void    norme_beater(t_transform *transform, int key);
 void    norminette_fight(t_transform *transform, int key);
 void    defeat_norm(t_transform *transform, int key);
 void	fdf_init(the_fdf *fdf, char *file_name);
+void    scale_n_rotate_matrix(t_matrix *matrix, t_map *map_struct, t_transform transform, int x, int y);
