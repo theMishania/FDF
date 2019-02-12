@@ -49,7 +49,7 @@ int line_check(char *line)
 		if (*line == ',')
 		{
 			line++;
-			while (isdigit(*line) || *line == 'x' || *line == 'X' || (*line >= 'A' && *line <= 'F'))
+			while (isdigit(*line) || *line == 'x' || *line == 'X' || (*line >= 'A' && *line <= 'F') || (*line >= 'a' && *line <= 'f'))
 				line++;
 		}
 		curr_x_size++;
@@ -102,7 +102,7 @@ void	map_set(t_map *map_struct, char *line, int i)
 		if (*line == ',')
 		{
 			line++;
-			while (isdigit(*line) || *line == 'x' || *line == 'X' || (*line >= 'A' && *line <= 'F'))
+			while (isdigit(*line) || *line == 'x' || *line == 'X' || (*line >= 'A' && *line <= 'F') || (*line >= 'a' && *line <= 'f'))
 				line++;
 		}
 		j++;		

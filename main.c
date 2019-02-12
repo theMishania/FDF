@@ -4,7 +4,7 @@
 #include <math.h>
 #include "map_drawing.h"
 
-int deal_key(int key)
+/*int deal_key(int key)
 {
 	if (key == 0x35) // Escape pressed
 	{
@@ -14,9 +14,15 @@ int deal_key(int key)
 	provider(key, "lo");
 	
 	return (0);
+}*/
+
+int	key_press(int key, void *param)
+{
+		provider(key, "lo");
+		return (0);
 }
 
-void	get_main_n_max_alt(t_map *map_struct)
+void	get_min_n_max_alt(t_map *map_struct)
 {
 	int i;
 	int j;
@@ -64,7 +70,7 @@ void provider(int key, char *file_name)
 		transform.delta_y = 500;
 		transform.color_on  = 0;
 		read_map(file_name, &map_struct);
-		get_main_n_max_alt(&map_struct);
+		get_min_n_max_alt(&map_struct);
 		
 		int bytes = 8;
 		int len = 1000;
@@ -74,6 +80,8 @@ void provider(int key, char *file_name)
 	}
 	mlx_clear_window(mlx_ptr, win_ptr);
 
+if (key == 53)
+        exit(-2);
 if (key == 0x7B || key == 0x7C) // Left or right arrow pressed
 	{
 		if (key == 0x7C)
@@ -101,10 +109,10 @@ if (key == 0x7B || key == 0x7C) // Left or right arrow pressed
 		}
 		else
 		{
-			if ((transform.proj_type == 0) || (transform.scale < 195))
-			{
+			//if ((transform.proj_type == 0))
+			//{
 				transform.scale += 2;//+
-			}
+			//}
 		}
 			
 	}
@@ -147,17 +155,17 @@ if (key == 0x7B || key == 0x7C) // Left or right arrow pressed
 	if (key == 0xff51 || key == 0xff53) // Left or right arrow pressed
 	{
 		if (key == 0xff53)
-			transform.beta +=  (M_PI / 56);
+			transform.beta +=  0.05;
 		else
-			transform.beta -=  (M_PI / 56);
+			transform.beta -=  0.05;
 	}
 
 	if (key == 0xff52 || key == 0xff54)//Op or dow arrow pressed
 	{
 		if (key == 0xff52)
-			transform.gamma +=  (M_PI / 56);
+			transform.gamma +=  0.05;
 		else
-			transform.gamma -=  (M_PI / 56);
+			transform.gamma -=  0.05;
 	}
 	
 	if (key == 0xffad || key == 0xffab)
@@ -170,9 +178,9 @@ if (key == 0x7B || key == 0x7C) // Left or right arrow pressed
 
 	if (key == 0xff96 || key == 0xff98)
 		if (key == 0xff98)
-			transform.alpha += (M_PI / 56);//num 6
+			transform.alpha += 0.05;//num 6
 		else
-			transform.alpha -= (M_PI / 56);// num 4
+			transform.alpha -= 0.05;// num 4
 
 	if (key == 0xff9d)
 		if (!transform.proj_type)
@@ -200,7 +208,13 @@ if (key == 0x7B || key == 0x7C) // Left or right arrow pressed
 	}*/
 	map_drawing(mlx_ptr, win_ptr, &map_struct, &transform);
 	mlx_put_image_to_window(mlx_ptr, win_ptr, image, 0, 0);
-	mlx_key_hook(win_ptr, deal_key, (void *)0);
+
+	mlx_hook(win_ptr, 2, 1L<<0, key_press, (void*)0);
+	//mlx_hook(fdf->win, 17, 1L << 17, close, fdf);
+	//mlx_hook(fdf->win, 4, 1L << 4, mouse_press, fdf);
+	//mlx_hook(fdf->win, 5, 1L << 5, mouse_release, fdf);
+	//mlx_hook(fdf->win, 6, 1L << 6, mouse_move, fdf);
+
 	mlx_loop(mlx_ptr);
 
 

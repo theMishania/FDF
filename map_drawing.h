@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_drawing.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 19:44:33 by chorange          #+#    #+#             */
-/*   Updated: 2019/01/15 18:56:30 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/07 19:47:02 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,3 +52,4 @@ t_point t_point_init(int x, int y, t_map *map_struct, t_transform transform);
 void	read_map(char *file_name, t_map *map_struct);
 void    put_point_to_image(char *image_data, int x, int y, int color);
 void    clear_image_data(char *image_data);
+int	key_press(int key, void *param);

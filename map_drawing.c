@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_drawing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 10:39:42 by cocummin          #+#    #+#             */
-/*   Updated: 2019/01/15 18:57:56 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/08 20:46:30 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void    map_drawing(void *mlx_ptr, void *win_ptr, t_map *map_struct, t_transform
     t_point right_point;
     t_point down_point;
 
+static int points_count;
+
     clear_image_data(map_struct->image_data);
     i = 0;
     while (i < map_struct->n)
@@ -63,17 +65,31 @@ void    map_drawing(void *mlx_ptr, void *win_ptr, t_map *map_struct, t_transform
         j = 0;
         while (j < map_struct->m)
         {
+            if (i == 0 && j == 0)
+                points_count = 0;
             main_point = t_point_init(j, i, map_struct, *transform);
+            if (main_point.alt_255 == 1000)
+            {
+                j++;
+                continue;
+            }
+            //printf("point %d\nx %d\n", points_count, main_point.x);
+            //printf("y %d\n\n", main_point.y);
             if (j != map_struct->m - 1)
             {
                 right_point = t_point_init(j + 1, i, map_struct, *transform);
+               if ((main_point.x <= IMAGE_WIDTH && main_point.x >=0 && main_point.y <= IMAGE_HEIGHT && main_point.y >= 0) || 
+                        (right_point.x <= IMAGE_WIDTH  && right_point.x >=0 && right_point.y <= IMAGE_HEIGHT && right_point.y >= 0))
                 line_drawing(mlx_ptr, win_ptr, main_point, right_point, map_struct->image_data);
             }
             if (i != map_struct->n - 1)
             {
                 down_point = t_point_init(j, i + 1, map_struct, *transform);
+                if ((main_point.x <= IMAGE_WIDTH && main_point.y <= IMAGE_HEIGHT && main_point.x >=0 && main_point.y >= 0) || 
+                        (down_point.x <= IMAGE_WIDTH && down_point.y <= IMAGE_HEIGHT && down_point.x >=0 && down_point.y >= 0))
                 line_drawing(mlx_ptr, win_ptr, main_point, down_point, map_struct->image_data);
             }
+            points_count++;
             j++;
         }
         i++;        
@@ -128,12 +144,20 @@ t_point t_point_init(int x, int y, t_map *map_struct, t_transform transform)
             y*cos(transform.alpha)*cos(transform.gamma) +
             z*sin(transform.alpha)*sin(transform.beta)*cos(transform.gamma) - 
             z*cos(transform.alpha)*sin(transform.gamma));
-    if (transform.proj_type == 1)
-    {
         z3 =(-x*sin(transform.beta) + y* cos(transform.beta)
             * sin (transform.gamma) + z* cos(transform.beta) * cos(transform.gamma));
-        x3 = (int)((double)x3 * (double)(1000.0/(1000 - z3)));
-        y3 = (int)((double)y3 * (double)(1000.0/(1000 - z3)));
+
+    if (1000 - z3 <= 0)
+    {
+        point.alt_255 = 1000;
+        return(point);
+    }
+    if (transform.proj_type == 1)
+    {
+        
+        x3 = (int)((double)x3 *                (double)(1000.0/(1000 - z3)));
+        y3 = (int)((double)y3 *                 (double)(1000.0/(1000 - z3)));
+       // printf("100 - z3 %d\n", (1000 - z3));
     }
     point.x = x3 + transform.delta_x;
     point.y = y3 + transform.delta_y;
