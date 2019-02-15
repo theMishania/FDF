@@ -51,14 +51,21 @@ void	fdf_init(the_fdf *fdf, char *file_name)
 	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, 1000, 1000, "NICEEEEEE");
 	fdf->image = mlx_new_image(fdf->mlx_ptr, 1000, 1000);
 
-
-	fdf->transform.scale = 30;
 	fdf->transform.proj_type = 0;
 	fdf->transform.delta_x = 500;
 	fdf->transform.delta_y = 500;
 	fdf->transform.color_on  = 0;
 	read_map(file_name, &(fdf->map_struct));
 	get_min_n_max_alt(&(fdf->map_struct));
+	if (fdf->map_struct.m >= fdf->map_struct.n)
+		fdf->transform.default_scale = 800 / fdf->map_struct.m;
+	else
+		fdf->transform.default_scale = 800 / fdf->map_struct.n;
+	fdf->transform.height_scale = 1.0;
+	fdf->transform.max_height_scale = (double)84.0 / (double)fdf->transform.default_scale;
+	fdf->transform.scale = fdf->transform.default_scale;
+	printf("%i\n", fdf->transform.scale);
+	printf("%f\n", fdf->transform.max_height_scale);
 		
 	int bytes = 8;
 	int len = 1000;
@@ -156,6 +163,7 @@ int main(int ac, char **av)
 {
 	//puts("begin");
 	//printf("%d", ABS(0));
+	argc_count_errors(ac);
 	provider(4, av[1]);
 	return (0);
 }

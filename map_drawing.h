@@ -6,7 +6,7 @@
 /*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 19:44:33 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/12 23:14:34 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/15 22:42:20 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ int		delta_x;
 int		delta_y;
 
 int scale;
+int default_scale;
+double height_scale;
+double max_height_scale;
 }   t_transform;
 
 typedef struct 	s_fdf
@@ -86,3 +89,6 @@ void    norminette_fight(t_transform *transform, int key);
 void    defeat_norm(t_transform *transform, int key);
 void	fdf_init(the_fdf *fdf, char *file_name);
 void    scale_n_rotate_matrix(t_matrix *matrix, t_map *map_struct, t_transform transform, int x, int y);
+void    open_errors(char *file_name);
+void    argc_count_errors(int argc);
+void    projection_changes(int key, t_transform *transform);

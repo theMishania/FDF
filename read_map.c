@@ -70,7 +70,9 @@ int		get_strings_count(char *name)
 	
 	//puts("begin get count");
 	count = 0;	
-	fd = open(name, O_RDONLY);
+	fd = open(name, O_RDWR);
+	if (fd < 0)
+		open_errors(name);
 	while (get_next_line(fd, &line))
 	{
 		//puts("line");

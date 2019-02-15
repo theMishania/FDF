@@ -6,7 +6,7 @@
 /*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 10:39:42 by cocummin          #+#    #+#             */
-/*   Updated: 2019/02/12 23:13:30 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/15 22:19:34 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,8 @@ void    scale_n_rotate_matrix(t_matrix *matrix, t_map *map_struct, t_transform t
     z = transform.scale * map_struct->map[y][x] - transform.scale * (map_struct->max_alt - map_struct->min_alt) / 2;
     y = transform.scale * y -  transform.scale * (map_struct->n - 1) / 2;
     x = transform.scale *  x -  transform.scale * (map_struct->m -1) / 2;
+
+    z = transform.height_scale * (double)(z);
 
     matrix->x = (x*cos(transform.alpha)*cos(transform.beta) + 
         y*cos(transform.alpha)*sin(transform.beta)*sin(transform.gamma) - 
