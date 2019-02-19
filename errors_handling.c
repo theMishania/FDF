@@ -6,7 +6,7 @@
 /*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 10:26:09 by cocummin          #+#    #+#             */
-/*   Updated: 2019/02/19 20:22:34 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/19 21:11:22 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,33 @@
 #include "map_drawing.h"
 #include "libft/libft.h"
 
+void    malloc_error()
+{
+    ft_putendl("Malloc error.");
+    exit(-2);
+}
+
 void    open_errors(char *file_name)
 {
+    ft_putstr(file_name);
     if (errno == EISDIR)
     {
-        ft_putstr(file_name);
         ft_putendl(":\tIt is a directory.");
         exit(-2);
     }
     else if (errno == EACCES)
     {
-        ft_putstr(file_name);
         ft_putendl(":\tPermission denied");
         exit(-2);
     }
     else if (errno == ENOENT)
     {
-        ft_putstr(file_name);
         ft_putendl(":\tNo such file or directory");
         exit(-2);
     }
 }
 
-void	read_errors(void)
+void	read_errors()
 {
 	ft_putendl("Wrong file.");
 	exit(-2);

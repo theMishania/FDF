@@ -27,7 +27,7 @@ int line_check(char *line)
 	{
 		while (*line == ' ')
 			line++;
-		if (*line && !ft_isdigit(*line) && *line != '-')
+		if ((*line && !ft_isdigit(*line) && *line != '-') || (!ft_isdigit(*line) && !curr_x_size))
 			read_errors();
 		if (*line == '-')
 			line++;
@@ -58,21 +58,18 @@ int		get_strings_count(char *name)
 	int		count;
 	int		fd;
 	char	*line;
-	
-	//puts("begin get count");
+
 	count = 0;	
 	fd = open(name, O_RDWR);
 	if (fd < 0)
 		open_errors(name);
 	while (get_next_line(fd, &line))
 	{
-		//puts("line");
 		if (*line)
 			count++;
 		free (line);
 	}
 	close (fd);
-	//puts("get count done");
 	return (count);
 }
 
@@ -81,13 +78,12 @@ void	map_set(t_map *map_struct, char *line, int i)
 	int j;
 	
 	j = 0;	
-	map_struct->map[i] = (int *)malloc(sizeof(int) * map_struct->m);////mallcheck
+	CHECK((map_struct->map[i] = (int *)malloc(sizeof(int) * map_struct->m)));
 	while (*line)
 	{
 		while (*line == ' ')
 			line++;
 		map_struct->map[i][j] = ft_atoi(line);
-		//printf("%d\n", atoi(line));
 		while (ft_isdigit(*line) || *line == '-')
 			line++;
 		while (*line == ' ')
@@ -109,15 +105,38 @@ void	read_map(char *file_name, t_map *map_struct)
 	int		i;
 
 	i = 0;
-	map_struct->n = get_strings_count(file_name);
-	map_struct->map = (int **)malloc(sizeof(int *) * (map_struct->n));/////mallcheck
+	if (!(map_struct->n = get_strings_count(file_name)))
+		read_errors();
+	CHECK((map_struct->map = (int **)malloc(sizeof(int *) * (map_struct->n))));
 	fd = open(file_name, O_RDONLY);
 	while (get_next_line(fd, &line))
 	{
 		map_struct->m = line_check(line);
 		map_set(map_struct, line, i);
-		free (line);
+		free(line);
 		i++;
 	}
+	if (!(map_struct->m > 1 || map_struct->m > 1))
+	{
+		free_all(map_struct);
+		read_errors();
+	}
 	close (fd);
+}
+
+void	free_all(t_map *map_struct)
+{
+	int i;
+
+	i = 0;
+	if (map_struct->map)
+	{
+		while (i < map_struct->n)
+		{
+			if (map_struct->map[i])
+				free(map_struct->map[i]);
+			i++;
+		}
+		free(map_struct->map);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 19:44:33 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/19 20:25:09 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/19 21:26:38 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <stdlib.h>
 
 # define ABS(a) (a) >= 0 ? (a) : -(a)
+# define CHECK(a) if (!a) malloc_error();
+# define CHECK_GNL(a) if (a == -1) read_errors();
 
 typedef struct s_map
 {
@@ -92,5 +94,7 @@ void	fdf_init(the_fdf *fdf, char *file_name);
 void    scale_n_rotate_matrix(t_matrix *matrix, t_map *map_struct, t_transform transform, int x, int y);
 void    open_errors(char *file_name);
 void	read_errors();
+void	malloc_error();
 void    argc_count_errors(int argc);
 void    projection_changes(int key, t_transform *transform);
+void	free_all(t_map *map_struct);
