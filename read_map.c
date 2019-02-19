@@ -15,16 +15,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include "map_drawing.h"
-
-void	err_fdf(int err_type)
-{
-	printf("error\t");
-	if (err_type == 2)
-		puts("wrong sym");
-	if (err_type == 3)
-		puts("wrong count");
-	exit(-2);
-}
+#include "libft/libft.h"
 
 int line_check(char *line)
 {
@@ -36,20 +27,20 @@ int line_check(char *line)
 	{
 		while (*line == ' ')
 			line++;
-		if (*line && !isdigit(*line) && *line != '-')
-			err_fdf(3);
+		if (*line && !ft_isdigit(*line) && *line != '-')
+			read_errors();
 		if (*line == '-')
 			line++;
-		while (isdigit(*line))
+		while (ft_isdigit(*line))
 			line++;
 		if (*line && (*line != ' ') && *line != ',')
-			err_fdf(3);
+			read_errors();
 		while (*line == ' ')
 			line++;
 		if (*line == ',')
 		{
 			line++;
-			while (isdigit(*line) || *line == 'x' || *line == 'X' || (*line >= 'A' && *line <= 'F') || (*line >= 'a' && *line <= 'f'))
+			while (ft_isdigit(*line) || *line == 'x' || *line == 'X' || (*line >= 'A' && *line <= 'F') || (*line >= 'a' && *line <= 'f'))
 				line++;
 		}
 		curr_x_size++;
@@ -58,7 +49,7 @@ int line_check(char *line)
 		x_size = curr_x_size;
 	else
 		if (x_size != curr_x_size)
-			err_fdf(2);
+			read_errors();
 	return (x_size);
 }
 
@@ -95,16 +86,16 @@ void	map_set(t_map *map_struct, char *line, int i)
 	{
 		while (*line == ' ')
 			line++;
-		map_struct->map[i][j] = atoi(line);
+		map_struct->map[i][j] = ft_atoi(line);
 		//printf("%d\n", atoi(line));
-		while (isdigit(*line) || *line == '-')
+		while (ft_isdigit(*line) || *line == '-')
 			line++;
 		while (*line == ' ')
 			line++;
 		if (*line == ',')
 		{
 			line++;
-			while (isdigit(*line) || *line == 'x' || *line == 'X' || (*line >= 'A' && *line <= 'F') || (*line >= 'a' && *line <= 'f'))
+			while (ft_isdigit(*line) || *line == 'x' || *line == 'X' || (*line >= 'A' && *line <= 'F') || (*line >= 'a' && *line <= 'f'))
 				line++;
 		}
 		j++;		

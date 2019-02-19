@@ -16,7 +16,7 @@
 	return (0);
 }*/
 
-int	key_press(int key, void *param)
+int	key_press(int key)
 {
 		provider(key, "lo");
 		return (0);
@@ -76,8 +76,6 @@ void	fdf_init(the_fdf *fdf, char *file_name)
 void provider(int key, char *file_name)
 {
 	static the_fdf fdf;
-	int i = 0;
-	int j;
 
 	if (!fdf.mlx_ptr)
 		fdf_init(&fdf, file_name);

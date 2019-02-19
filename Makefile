@@ -6,13 +6,13 @@
 #    By: chorange <chorange@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/18 18:53:25 by chorange          #+#    #+#              #
-#    Updated: 2019/02/18 19:42:37 by chorange         ###   ########.fr        #
+#    Updated: 2019/02/19 20:19:07 by chorange         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
-FLAGS = #-Wextra -Wall -Werror
+FLAGS = -Wextra -Wall -Werror
 
 OBJECTS = get_next_line.o main.o map_drawing.o read_map.o errors_handling.o \
 			key_utils.o 

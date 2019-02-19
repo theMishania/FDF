@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   map_drawing.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 19:44:33 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/15 22:42:20 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/19 20:25:09 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 # define ABS(a) (a) >= 0 ? (a) : -(a)
 
@@ -82,7 +83,7 @@ t_point t_point_init(int x, int y, t_map *map_struct, t_transform transform);
 void	read_map(char *file_name, t_map *map_struct);
 void    put_point_to_image(char *image_data, int x, int y, int color);
 void    clear_image_data(char *image_data);
-int	key_press(int key, void *param);
+int		key_press(int key);
 void	key_utils(t_transform *transform, int key);
 void    norme_beater(t_transform *transform, int key);
 void    norminette_fight(t_transform *transform, int key);
@@ -90,5 +91,6 @@ void    defeat_norm(t_transform *transform, int key);
 void	fdf_init(the_fdf *fdf, char *file_name);
 void    scale_n_rotate_matrix(t_matrix *matrix, t_map *map_struct, t_transform transform, int x, int y);
 void    open_errors(char *file_name);
+void	read_errors();
 void    argc_count_errors(int argc);
 void    projection_changes(int key, t_transform *transform);

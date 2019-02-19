@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_drawing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 10:39:42 by cocummin          #+#    #+#             */
-/*   Updated: 2019/02/19 18:45:47 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/19 20:21:04 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@ static int points_count;
             if (j != fdf->map_struct.m - 1)
             {
                 right_point = t_point_init(j + 1, i, &(fdf->map_struct), fdf->transform);
+                if (right_point.alt_255 == 1000)
+                {
+                    j++;
+                    continue;
+                }
                if ((main_point.x <= IMAGE_WIDTH && main_point.x >=0 && main_point.y <= IMAGE_HEIGHT && main_point.y >= 0) || 
                         (right_point.x <= IMAGE_WIDTH  && right_point.x >=0 && right_point.y <= IMAGE_HEIGHT && right_point.y >= 0))
                     line_drawing(fdf, main_point, right_point);//, fdf->map_struct.image_data);
@@ -85,6 +90,11 @@ static int points_count;
             if (i != fdf->map_struct.n - 1)
             {
                 down_point = t_point_init(j, i + 1, &(fdf->map_struct), fdf->transform);
+                if (down_point.alt_255 == 1000)
+                {
+                    j++;
+                    continue;
+                }
                 if ((main_point.x <= IMAGE_WIDTH && main_point.y <= IMAGE_HEIGHT && main_point.x >=0 && main_point.y >= 0) || 
                         (down_point.x <= IMAGE_WIDTH && down_point.y <= IMAGE_HEIGHT && down_point.x >=0 && down_point.y >= 0))
                     line_drawing(fdf, main_point, down_point);//, fdf->map_struct.image_data);
@@ -121,10 +131,6 @@ t_point t_point_init(int x, int y, t_map *map_struct, t_transform transform)
 {
     t_point point;
     t_matrix matrix;
-    int x3;
-    int y3;
-    int z;
-    int z3;
 
     if (transform.color_on)
         get_point_color(map_struct->map[y][x], &point, map_struct);
@@ -181,7 +187,7 @@ void    scale_n_rotate_matrix(t_matrix *matrix, t_map *map_struct, t_transform t
 static void    line_drow_x(the_fdf *fdf, t_point f, t_point s)
 {
     t_variables vars;
-    int     color;
+
 
     vars.a = f.y - s.y;
     vars.b = s.x - f.x;
@@ -237,10 +243,3 @@ void    line_drawing(the_fdf *fdf, t_point f, t_point s)
 
 
 
-
-static int  escape_pressed(int key_code)
-{
-    if (key_code == 53)
-        exit(-2);
-    return (0);
-}

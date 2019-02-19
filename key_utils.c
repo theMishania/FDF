@@ -6,7 +6,7 @@
 /*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 22:14:13 by cocummin          #+#    #+#             */
-/*   Updated: 2019/02/18 19:34:37 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/19 20:18:31 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void    norme_beater(t_transform *transform, int key)
     if (key == 53)
             exit(-2);
     if (key == 0x7B || key == 0x7C) // Left or right arrow pressed
-     {
+    {
         if (key == 0x7C)
             transform->beta +=  (M_PI / 60);
         else
@@ -67,10 +67,12 @@ void    norminette_fight(t_transform *transform, int key)
                   
     }
     if (key == 0x56 || key == 0x58)
+    {
 		if (key == 0x58)
 			transform->alpha += (M_PI / 60);//num 6
 		else
 			transform->alpha -= (M_PI / 60);// num 4
+    }
 
 	if (key == 0x23 || key == 0x22 || key == 0x1F)
     {
@@ -88,10 +90,12 @@ void    norminette_fight(t_transform *transform, int key)
 void    defeat_norm(t_transform *transform, int key)
 {
     if (key == 0x08)
+    {
         if (!transform->color_on)// c
             transform->color_on = 1;
         else
             transform->color_on = 0;
+    }
     if (key == 0x0D || key == 0x01)
     {
         if (key == 0x0D)
