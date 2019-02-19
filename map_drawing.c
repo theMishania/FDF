@@ -6,7 +6,7 @@
 /*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 10:39:42 by cocummin          #+#    #+#             */
-/*   Updated: 2019/02/15 22:19:34 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/19 18:45:47 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ static int points_count;
                 right_point = t_point_init(j + 1, i, &(fdf->map_struct), fdf->transform);
                if ((main_point.x <= IMAGE_WIDTH && main_point.x >=0 && main_point.y <= IMAGE_HEIGHT && main_point.y >= 0) || 
                         (right_point.x <= IMAGE_WIDTH  && right_point.x >=0 && right_point.y <= IMAGE_HEIGHT && right_point.y >= 0))
-                line_drawing(fdf, main_point, right_point);//, fdf->map_struct.image_data);
+                    line_drawing(fdf, main_point, right_point);//, fdf->map_struct.image_data);
             }
             if (i != fdf->map_struct.n - 1)
             {
                 down_point = t_point_init(j, i + 1, &(fdf->map_struct), fdf->transform);
                 if ((main_point.x <= IMAGE_WIDTH && main_point.y <= IMAGE_HEIGHT && main_point.x >=0 && main_point.y >= 0) || 
                         (down_point.x <= IMAGE_WIDTH && down_point.y <= IMAGE_HEIGHT && down_point.x >=0 && down_point.y >= 0))
-                line_drawing(fdf, main_point, down_point);//, fdf->map_struct.image_data);
+                    line_drawing(fdf, main_point, down_point);//, fdf->map_struct.image_data);
             }
             points_count++;
             j++;
@@ -133,7 +133,7 @@ t_point t_point_init(int x, int y, t_map *map_struct, t_transform transform)
 
     scale_n_rotate_matrix(&matrix, map_struct, transform, x, y);
 
-    if (1000 - matrix.z <= 0)
+    if (1000 - matrix.z <= 0 && transform.proj_type == 1)
     {
         point.alt_255 = 1000;
         return(point);
