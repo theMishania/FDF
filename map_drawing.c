@@ -6,7 +6,7 @@
 /*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 10:39:42 by cocummin          #+#    #+#             */
-/*   Updated: 2019/02/20 20:38:10 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/20 20:53:34 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,39 +73,38 @@ void    map_drawing(the_fdf *fdf)
 
 
 
-int     drow_right(the_fdf *fdf, int i, int j, t_point main_point)
+int     drow_right(the_fdf *fdf, int i, int j, t_point main)
 {
-    t_point right_point;
+    t_point right;
 
     if (j != fdf->map_struct.m - 1)
     {
-        right_point = t_point_init(j + 1, i, &(fdf->map_struct), fdf->transform);
-        if (right_point.alt_255 == 1000)
-        {
-           // j++;
+        right = t_point_init(j + 1, i, &(fdf->map_struct), fdf->transform);
+        if (right.alt_255 == 1000)
             return (0);
-        }
-        if ((main_point.x <= IMAGE_WIDTH && main_point.x >=0 && main_point.y <= IMAGE_HEIGHT && main_point.y >= 0) || 
-                (right_point.x <= IMAGE_WIDTH  && right_point.x >=0 && right_point.y <= IMAGE_HEIGHT && right_point.y >= 0))
-            line_drawing(fdf, main_point, right_point);//, fdf->map_struct.image_data);
+        if ((main.x <= IMAGE_WIDTH && main.x >=0 && main.y <= IMAGE_HEIGHT &&
+                    main.y >= 0) ||
+                (right.x <= IMAGE_WIDTH  && right.x >=0 &&
+                    right.y <= IMAGE_HEIGHT && right.y >= 0))
+            line_drawing(fdf, main, right);
     }
     return(1);
 }
 
-int     drow_down(the_fdf *fdf, int i, int j, t_point main_point)
+int     drow_down(the_fdf *fdf, int i, int j, t_point main)
 {
-    t_point down_point;
+    t_point down;
 
     if (i != fdf->map_struct.n - 1)
     {
-        down_point = t_point_init(j, i + 1, &(fdf->map_struct), fdf->transform);
-        if (down_point.alt_255 == 1000)
-        {
+        down = t_point_init(j, i + 1, &(fdf->map_struct), fdf->transform);
+        if (down.alt_255 == 1000)
             return(0);
-        }
-        if ((main_point.x <= IMAGE_WIDTH && main_point.y <= IMAGE_HEIGHT && main_point.x >=0 && main_point.y >= 0) || 
-                (down_point.x <= IMAGE_WIDTH && down_point.y <= IMAGE_HEIGHT && down_point.x >=0 && down_point.y >= 0))
-            line_drawing(fdf, main_point, down_point);//, fdf->map_struct.image_data);
+        if ((main.x <= IMAGE_WIDTH && main.y <= IMAGE_HEIGHT && main.x >=0 &&
+                main.y >= 0) ||
+            (down.x <= IMAGE_WIDTH && down.y <= IMAGE_HEIGHT && down.x >=0 &&
+                down.y >= 0))
+            line_drawing(fdf, main, down);
     }
     return(1);
 }
@@ -134,9 +133,7 @@ t_point t_point_init(int x, int y, t_map *map_struct, t_transform transform)
         get_point_color(map_struct->map[y][x], &point, map_struct);
     else
         point.alt_255 = 0;
-
     scale_n_rotate_matrix(&matrix, map_struct, transform, x, y);
-
     if (1000 - matrix.z <= 0 && transform.proj_type == 1)
     {
         point.alt_255 = 1000;
@@ -144,9 +141,8 @@ t_point t_point_init(int x, int y, t_map *map_struct, t_transform transform)
     }
     if (transform.proj_type == 1)
     {
-        
-        matrix.x = (int)((double)matrix.x *                (double)(1000.0/(1000 - matrix.z)));
-        matrix.y = (int)((double)matrix.y *                 (double)(1000.0/(1000 - matrix.z)));
+        matrix.x = (int)((double)matrix.x * (double)(1000.0/(1000 - matrix.z)));
+        matrix.y = (int)((double)matrix.y * (double)(1000.0/(1000 - matrix.z)));
     }
     point.x = matrix.x + transform.delta_x;
     point.y = matrix.y + transform.delta_y;
@@ -158,12 +154,11 @@ void    scale_n_rotate_matrix(t_matrix *matrix, t_map *map_struct, t_transform t
 {
     int z;
 
-    z = transform.scale * map_struct->map[y][x] - transform.scale * (map_struct->max_alt - map_struct->min_alt) / 2;
+    z = transform.scale * map_struct->map[y][x] - transform.scale *
+        (map_struct->max_alt - map_struct->min_alt) / 2;
     y = transform.scale * y -  transform.scale * (map_struct->n - 1) / 2;
     x = transform.scale *  x -  transform.scale * (map_struct->m -1) / 2;
-
     z = transform.height_scale * (double)(z);
-
     matrix->x = (x*cos(transform.alpha)*cos(transform.beta) + 
         y*cos(transform.alpha)*sin(transform.beta)*sin(transform.gamma) - 
         y*sin(transform.alpha)*cos(transform.gamma) +
@@ -186,7 +181,6 @@ static void    line_drow_x(the_fdf *fdf, t_point f, t_point s)
 {
     t_variables vars;
 
-
     vars.a = f.y - s.y;
     vars.b = s.x - f.x;
     vars.c = f.x * s.y - s.x * f.y;
@@ -200,7 +194,9 @@ static void    line_drow_x(the_fdf *fdf, t_point f, t_point s)
     while (vars.tmp_x != s.x)
     {
         vars.tmp_y = (-vars.a * vars.tmp_x - vars.c) / vars.b;
-        put_point_to_image(fdf->map_struct.image_data, vars.tmp_x, vars.tmp_y, (f.alt_255 + (int)(vars.step * vars.i)) * 0x010000 + (255 - f.alt_255 - (int)(vars.step * vars.i)) * 0x000100);
+        put_point_to_image(fdf->map_struct.image_data, vars.tmp_x, vars.tmp_y,
+            (f.alt_255 + (int)(vars.step * vars.i)) * 0x010000 +
+            (255 - f.alt_255 - (int)(vars.step * vars.i)) * 0x000100);
         vars.tmp_x += f.x <= s.x ? 1 : -1;
         vars.i++;
     }
@@ -223,7 +219,9 @@ static void    line_drow_y(the_fdf *fdf, t_point f, t_point s)
     while (vars.tmp_y != s.y)
     {
         vars.tmp_x = (-vars.b * vars.tmp_y - vars.c) / vars.a;
-        put_point_to_image(fdf->map_struct.image_data, vars.tmp_x, vars.tmp_y, (f.alt_255 + (int)(vars.step * vars.i)) * 0x010000 + (255 - f.alt_255 - (int)(vars.step * vars.i)) * 0x000100);
+        put_point_to_image(fdf->map_struct.image_data, vars.tmp_x, vars.tmp_y,
+            (f.alt_255 + (int)(vars.step * vars.i)) * 0x010000 +
+            (255 - f.alt_255 - (int)(vars.step * vars.i)) * 0x000100);
         vars.tmp_y += f.y <= s.y ? 1 : -1;
         vars.i++;
     }
