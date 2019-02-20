@@ -6,7 +6,7 @@
 /*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 10:39:42 by cocummin          #+#    #+#             */
-/*   Updated: 2019/02/20 20:53:34 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/20 22:01:01 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void    map_drawing(the_fdf *fdf)
         }
         i++;        
     }
+    
 }
 
 
@@ -237,5 +238,28 @@ void    line_drawing(the_fdf *fdf, t_point f, t_point s)
         line_drow_y(fdf, f, s);
 }
 
+void    drow_guide(the_fdf *fdf)
+{   
+    if (!fdf->transform.guide_visible)
+        put_string(fdf, 40, 20, "Press H to show Info & Guide");
+    else
+    {
+        put_string(fdf, 40, 20, "FDF");
+        put_string(fdf, 40, 40, "File:");
+        put_string(fdf, 100, 40, fdf->file_name);
+        put_string(fdf, 40, 80, "Guide:");
+        put_string(fdf, 40, 100, "Press ARROWS, NUM4 and NUM6 to rotate map");
+        put_string(fdf, 40, 120, "Press + or - to change scale");
+        put_string(fdf, 40, 140, "Press C to activate/disactivate AltitudeGradientColor mode");
+        put_string(fdf, 40, 160, "Press I to set iso projection");
+        put_string(fdf, 40, 180, "Press O to set ortogonal (parallel) projection");
+        put_string(fdf, 40, 200, "Press P to set perspective (central) projection");
+        put_string(fdf, 40, 220, "Press ESC to exit");
+        put_string(fdf, 40, 240, "Press H to hide Info & Guide");
+    }
+}
 
-
+void    put_string(the_fdf *fdf, int x, int y, char *string)
+{
+    mlx_string_put(fdf->mlx_ptr, fdf->win_ptr, x, y, 0xFFFFFF, string);
+}

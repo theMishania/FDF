@@ -6,12 +6,18 @@
 /*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 19:44:33 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/20 20:34:34 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/20 21:37:19 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef MAP_DROWING_H
+# define MAP_DROWING_H
+
+
+
+# include <stdio.h>
+# include <stdlib.h>
+# include "libft/libft.h"
 
 # define ABS(a) (a) >= 0 ? (a) : -(a)
 # define CHECK(a) if (!a) malloc_error();
@@ -50,6 +56,7 @@ int scale;
 int default_scale;
 double height_scale;
 double max_height_scale;
+int			guide_visible;
 }   t_transform;
 
 typedef struct 	s_fdf
@@ -59,6 +66,7 @@ typedef struct 	s_fdf
 	void		*image;
 	t_transform	transform;
 	t_map 		map_struct;
+	char		file_name[64];
 }				the_fdf;
 
 typedef struct s_variables
@@ -101,3 +109,7 @@ void    projection_changes(int key, t_transform *transform);
 void	free_all(t_map *map_struct);
 int     drow_right(the_fdf *fdf, int i, int j, t_point main_point);
 int     drow_down(the_fdf *fdf, int i, int j, t_point main_point);
+void    drow_guide(the_fdf *fdf);
+void    put_string(the_fdf *fdf, int x, int y, char *string);
+
+#endif

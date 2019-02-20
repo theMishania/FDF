@@ -6,7 +6,7 @@
 /*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 22:14:13 by cocummin          #+#    #+#             */
-/*   Updated: 2019/02/20 20:27:25 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/20 21:49:57 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void    norme_beater(t_transform *transform, int key)
 {
     if (key == 53)
             exit(-2);
-    if (key == 0x7B || key == 0x7C) // Left or right arrow pressed
+    else if (key == 0x7B || key == 0x7C) // Left or right arrow pressed
     {
         if (key == 0x7C)
             transform->beta +=  (M_PI / 60);
@@ -32,20 +32,12 @@ void    norme_beater(t_transform *transform, int key)
             transform->beta -=  (M_PI / 60);
     }
 
-    if (key == 0x7E || key == 0x7D)//Op or dow arrow pressed
+    else if (key == 0x7E || key == 0x7D)//Op or dow arrow pressed
     {
         if (key == 0x7E)
             transform->gamma +=  (M_PI / 60);
         else
             transform->gamma -=  (M_PI / 60);
-    }
-
-    if (key == 0x12 || key == 0x13)
-    {
-        if (key == 0x12)
-            transform->alpha += (M_PI / 60);
-        else
-            transform->alpha -= (M_PI / 60);
     }
 }
 
@@ -66,7 +58,7 @@ void    norminette_fight(t_transform *transform, int key)
         }
                   
     }
-    if (key == 0x56 || key == 0x58)
+    else if (key == 0x56 || key == 0x58)
     {
 		if (key == 0x58)
 			transform->alpha += (M_PI / 60);//num 6
@@ -74,7 +66,7 @@ void    norminette_fight(t_transform *transform, int key)
 			transform->alpha -= (M_PI / 60);// num 4
     }
 
-	if (key == 0x23 || key == 0x22 || key == 0x1F)
+	else if (key == 0x23 || key == 0x22 || key == 0x1F)
     {
         projection_changes(key, transform);
     }
@@ -90,41 +82,20 @@ void    norminette_fight(t_transform *transform, int key)
 void    defeat_norm(t_transform *transform, int key)
 {
     if (key == 0x08)
-    {
-        if (!transform->color_on)// c
-            transform->color_on = 1;
-        else
-            transform->color_on = 0;
-    }
-   /* if (key == 0x0D || key == 0x01)
-    {
-        if (key == 0x0D)
-            transform->delta_y -= 20;// w
-        else
-            transform->delta_y +=20;// s
-    }
-    if (key == 0x00 || key == 0x02)
-    {
-        if (key == 0x02)
-            transform->delta_x += 20;// d
-        else
-            transform->delta_x -=20;// a
-    }*/
-    if (key == 0x14 || key == 0x15)
+        transform->color_on = (!transform->color_on) ? 1 : 0;
+    else if (key == 0x04)
+        transform->guide_visible = (!transform->guide_visible) ? 1 : 0;
+    else if (key == 0x14 || key == 0x15)
     {
         if (key == 0x14)
         {
             if (transform->height_scale <= transform->max_height_scale)
-            {
                 transform->height_scale += 0.1;
-            }
         } 
         else
         {
             if (transform->height_scale > -transform->max_height_scale)
-            {
                 transform->height_scale -= 0.1;
-            }
         }
     }
 }
@@ -140,7 +111,8 @@ void    projection_changes(int key, t_transform *transform)
         //transform->alpha = 0.0;
         //transform->beta = 0.0;
         //transform->gamma = 0.0;
-    }else if (key == 0x22)
+    }
+    else if (key == 0x22)
     {
         //transform->scale = transform->default_scale;
 	    transform->proj_type = 0;
