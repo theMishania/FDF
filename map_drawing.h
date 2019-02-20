@@ -6,7 +6,7 @@
 /*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 19:44:33 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/19 21:26:38 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/20 20:34:34 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define ABS(a) (a) >= 0 ? (a) : -(a)
 # define CHECK(a) if (!a) malloc_error();
 # define CHECK_GNL(a) if (a == -1) read_errors();
+# define IF_DO_CONT(a, x) if (a) {x; continue ;}
 
 typedef struct s_map
 {
@@ -98,3 +99,5 @@ void	malloc_error();
 void    argc_count_errors(int argc);
 void    projection_changes(int key, t_transform *transform);
 void	free_all(t_map *map_struct);
+int     drow_right(the_fdf *fdf, int i, int j, t_point main_point);
+int     drow_down(the_fdf *fdf, int i, int j, t_point main_point);

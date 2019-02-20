@@ -6,7 +6,7 @@
 /*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 22:14:13 by cocummin          #+#    #+#             */
-/*   Updated: 2019/02/19 20:18:31 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/20 20:27:25 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void    defeat_norm(t_transform *transform, int key)
         else
             transform->color_on = 0;
     }
-    if (key == 0x0D || key == 0x01)
+   /* if (key == 0x0D || key == 0x01)
     {
         if (key == 0x0D)
             transform->delta_y -= 20;// w
@@ -109,7 +109,7 @@ void    defeat_norm(t_transform *transform, int key)
             transform->delta_x += 20;// d
         else
             transform->delta_x -=20;// a
-    }
+    }*/
     if (key == 0x14 || key == 0x15)
     {
         if (key == 0x14)
@@ -135,14 +135,14 @@ void    projection_changes(int key, t_transform *transform)
 	transform->delta_y = 500;
     if (key == 0x1F)
     {
-        transform->scale = transform->default_scale;
+        //transform->scale = transform->default_scale;
 	    transform->proj_type = 0;
-        transform->alpha = 0.0;
-        transform->beta = 0.0;
-        transform->gamma = 0.0;
+        //transform->alpha = 0.0;
+        //transform->beta = 0.0;
+        //transform->gamma = 0.0;
     }else if (key == 0x22)
     {
-        transform->scale = transform->default_scale;
+        //transform->scale = transform->default_scale;
 	    transform->proj_type = 0;
         transform->alpha = M_PI / 6;
         transform->beta = -M_PI / 4;
@@ -150,10 +150,10 @@ void    projection_changes(int key, t_transform *transform)
     }
     else if (key == 0x23)
     {
-        transform->scale = transform->default_scale;
+        //transform->scale = transform->default_scale;
 	    transform->proj_type = 1;
-        transform->alpha = 0.0;
-        transform->beta = 0.0;
-        transform->gamma = 0.0;
+        //transform->alpha = 0.0;
+        //transform->beta = 0.0;
+        //transform->gamma = 0.0;
     }
 }
