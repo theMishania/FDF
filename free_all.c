@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/21 19:19:53 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/21 19:20:09 by chorange         ###   ########.fr       */
+/*   Created: 2019/02/21 18:36:18 by chorange          #+#    #+#             */
+/*   Updated: 2019/02/21 18:40:16 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		main(int ac, char **av)
+void	free_all(t_map *map_struct)
 {
-	argc_count_errors(ac);
-	provider(4, av[1]);
-	return (0);
+	int	i;
+
+	i = 0;
+	if (map_struct->map)
+	{
+		while (i < map_struct->n)
+		{
+			if (map_struct->map[i])
+				free(map_struct->map[i]);
+			i++;
+		}
+		free(map_struct->map);
+	}
 }

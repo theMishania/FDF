@@ -5,61 +5,62 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/04 19:44:52 by chorange          #+#    #+#             */
-/*   Updated: 2019/01/04 19:44:52 by chorange         ###   ########.fr       */
+/*   Created: 2019/02/21 18:35:33 by chorange          #+#    #+#             */
+/*   Updated: 2019/02/21 19:55:29 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include "string.h"
-#include <fcntl.h>
-#include <stdio.h>
-#include "map_drawing.h"
-#include "libft/libft.h"
+#include "fdf.h"
 
-int line_check(char *line)
+static void	line_check_cycle(char **line, int curr_x_size)
+{
+	while (**line == ' ')
+		(*line)++;
+	if ((**line && !ft_isdigit(**line) && **line != '-') ||
+			(!ft_isdigit(**line) && !curr_x_size))
+		read_errors();
+	if (**line == '-')
+		(*line)++;
+	while (ft_isdigit(**line))
+		(*line)++;
+	if (**line && (**line != ' ') && **line != ',')
+		read_errors();
+	while (**line == ' ')
+		(*line)++;
+	if (**line == ',')
+	{
+		(*line)++;
+		while (ft_isdigit(**line) || **line == 'x' || **line == 'X' ||
+		(**line >= 'A' && **line <= 'F') || (**line >= 'a' && **line <= 'f'))
+			(*line)++;
+	}
+}
+
+static int	line_check(char *line)
 {
 	static int	x_size = 0;
 	int			curr_x_size;
-	
+
 	curr_x_size = 0;
 	while (*line)
 	{
-		while (*line == ' ')
-			line++;
-		if ((*line && !ft_isdigit(*line) && *line != '-') || (!ft_isdigit(*line) && !curr_x_size))
-			read_errors();
-		if (*line == '-')
-			line++;
-		while (ft_isdigit(*line))
-			line++;
-		if (*line && (*line != ' ') && *line != ',')
-			read_errors();
-		while (*line == ' ')
-			line++;
-		if (*line == ',')
-		{
-			line++;
-			while (ft_isdigit(*line) || *line == 'x' || *line == 'X' || (*line >= 'A' && *line <= 'F') || (*line >= 'a' && *line <= 'f'))
-				line++;
-		}
+		line_check_cycle(&line, curr_x_size);
 		curr_x_size++;
 	}
 	if (!x_size)
 		x_size = curr_x_size;
-	else
-		if (x_size != curr_x_size)
-			read_errors();
+	else if (x_size != curr_x_size)
+		read_errors();
 	return (x_size);
 }
 
-int		get_strings_count(char *name)
+static int	get_strings_count(char *name)
 {
 	int		count;
 	int		fd;
 	char	*line;
 
-	count = 0;	
+	count = 0;
 	fd = open(name, O_RDWR);
 	if (fd < 0)
 		open_errors(name);
@@ -67,23 +68,29 @@ int		get_strings_count(char *name)
 	{
 		if (*line)
 			count++;
-		free (line);
+		free(line);
 	}
-	close (fd);
+	if (line)
+		free(line);
+	close(fd);
 	return (count);
 }
 
-void	map_set(t_map *map_struct, char *line, int i)
+static void	map_set(t_map *map_struct, char *line, int i)
 {
 	int j;
-	
-	j = 0;	
-	CHECK((map_struct->map[i] = (int *)malloc(sizeof(int) * map_struct->m)));
+
+	j = 0;
+	if (!(map_struct->map[i] = (int *)malloc(sizeof(int) * map_struct->m)))
+	{
+		free_all(map_struct);
+		exit(-2);
+	}
 	while (*line)
 	{
 		while (*line == ' ')
 			line++;
-		map_struct->map[i][j] = ft_atoi(line);
+		map_struct->map[i][j++] = ft_atoi(line);
 		while (ft_isdigit(*line) || *line == '-')
 			line++;
 		while (*line == ' ')
@@ -91,14 +98,14 @@ void	map_set(t_map *map_struct, char *line, int i)
 		if (*line == ',')
 		{
 			line++;
-			while (ft_isdigit(*line) || *line == 'x' || *line == 'X' || (*line >= 'A' && *line <= 'F') || (*line >= 'a' && *line <= 'f'))
+			while (ft_isdigit(*line) || *line == 'x' || *line == 'X' ||
+			(*line >= 'A' && *line <= 'F') || (*line >= 'a' && *line <= 'f'))
 				line++;
 		}
-		j++;		
 	}
 }
 
-void	read_map(char *file_name, t_map *map_struct)
+void		read_map(char *file_name, t_map *map_struct)
 {
 	int		fd;
 	char	*line;
@@ -116,27 +123,12 @@ void	read_map(char *file_name, t_map *map_struct)
 		free(line);
 		i++;
 	}
+	if (line)
+		free(line);
 	if (!(map_struct->m > 1 || map_struct->m > 1))
 	{
 		free_all(map_struct);
 		read_errors();
 	}
-	close (fd);
-}
-
-void	free_all(t_map *map_struct)
-{
-	int i;
-
-	i = 0;
-	if (map_struct->map)
-	{
-		while (i < map_struct->n)
-		{
-			if (map_struct->map[i])
-				free(map_struct->map[i]);
-			i++;
-		}
-		free(map_struct->map);
-	}
+	close(fd);
 }

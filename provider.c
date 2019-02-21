@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   provider.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/21 19:19:53 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/21 19:20:09 by chorange         ###   ########.fr       */
+/*   Created: 2019/02/21 19:02:32 by chorange          #+#    #+#             */
+/*   Updated: 2019/02/21 20:11:01 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		main(int ac, char **av)
+static int	key_press(int key)
 {
-	argc_count_errors(ac);
-	provider(4, av[1]);
+	provider(key, "lo");
 	return (0);
+}
+
+void		provider(int key, char *file_name)
+{
+	static t_fdf fdf;
+
+	if (!fdf.mlx_ptr)
+		fdf_init(&fdf, file_name);
+	mlx_clear_window(fdf.mlx_ptr, fdf.win_ptr);
+	key_utils(&fdf, key);
+	map_drawing(&fdf);
+	mlx_put_image_to_window(fdf.mlx_ptr, fdf.win_ptr, fdf.image, 0, 0);
+	drow_guide(&fdf);
+	mlx_hook(fdf.win_ptr, 2, 1L << 0, key_press, (void*)0);
+	mlx_loop(fdf.mlx_ptr);
 }
