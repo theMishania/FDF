@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 19:44:33 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/21 20:17:15 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/23 10:33:09 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void			put_point_to_image(char *image_data, int x, int y, int color);
 void			clear_image_data(char *image_data);
 
 void			key_utils(t_fdf *fdf, int key);
+void			change_view_side(t_fdf *fdf, int key);
 
 void			open_errors(char *file_name);
 void			read_errors();

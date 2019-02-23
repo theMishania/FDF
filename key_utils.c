@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 18:24:02 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/21 20:15:46 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/23 10:32:17 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,5 @@ void		key_utils(t_fdf *fdf, int key)
 	norme_beater(fdf, key);
 	norminette_fight(fdf, key);
 	defeat_norm(fdf, key);
+	change_view_side(fdf, key);
 }

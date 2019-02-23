@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   drow_guide.c                                       :+:      :+:    :+:   */
+/*   guide_drawing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 19:48:58 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/21 20:00:40 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/23 11:46:37 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,34 @@
 static void	put_string(t_fdf *fdf, int x, int y, char *string)
 {
 	mlx_string_put(fdf->mlx_ptr, fdf->win_ptr, x, y, 0xFFFFFF, string);
+}
+
+static void draw_sides_guide(t_fdf *fdf)
+{
+	put_string(fdf, 650, 100, "Press F to see frontside");
+	put_string(fdf, 650, 120, "Press M to see backside");
+	put_string(fdf, 650, 140, "Press T to see topside");
+	put_string(fdf, 650, 160, "Press B to see bottomside");
+	put_string(fdf, 650, 180, "Press R ro see rightside");
+	put_string(fdf, 650, 200, "Press L to see leftside");
+}
+
+static void put_projection(t_fdf *fdf)
+{
+	if (fdf->transform.proj_type == 0)
+	{
+		if (fdf->transform.alpha == M_PI / 6 && fdf->transform.beta == -M_PI / 4 &&
+		fdf->transform.gamma == M_PI / 4)
+		{
+			put_string(fdf, 40, 960, "Projection Type: ISO");
+		}
+		else
+			put_string(fdf, 40, 960, "Projection Type: Parallel");
+	}
+	else
+	{
+		put_string(fdf, 40, 960, "Projection Type: Central");
+	}
 }
 
 void		drow_guide(t_fdf *fdf)
@@ -39,5 +67,7 @@ void		drow_guide(t_fdf *fdf)
 			"Press P to set perspective (central) projection");
 		put_string(fdf, 40, 240, "Press ESC to exit");
 		put_string(fdf, 40, 260, "Press H to hide Info & Guide");
+		draw_sides_guide(fdf);
 	}
+	put_projection(fdf);
 }
