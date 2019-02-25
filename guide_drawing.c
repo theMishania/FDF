@@ -6,7 +6,7 @@
 /*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 19:48:58 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/23 11:46:37 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/25 09:46:18 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,31 @@ static void put_projection(t_fdf *fdf)
 	}
 }
 
+// static int transform_to_dergrees(double angle)
+// {
+
+// }
+
+static void put_angles(t_fdf *fdf)
+{
+	int alpha;
+	int beta;
+	int gamma;
+
+	alpha = (int)(60 * (fdf->transform.alpha / M_PI));
+	beta = (int)(60 * (fdf->transform.beta / M_PI));
+	gamma = (int)(60 * (fdf->transform.gamma / M_PI));
+
+	put_string(fdf, 700, 900, "Rotation angles:");
+	put_string(fdf, 750, 920, "Alpha");
+	put_string(fdf, 750, 940, "Beta");
+	put_string(fdf, 750, 960, "Gamma");
+	put_string(fdf, 850, 920, ft_itoa(ABS(alpha * 3 % 360)));
+	put_string(fdf, 850, 940, ft_itoa(ABS(beta * 3 % 360)));
+	put_string(fdf, 850, 960, ft_itoa(ABS(gamma * 3 % 360)));
+	put_string(fdf, 450, 960, fdf->transform.color_on ? "Color: On" : "Color: Off");
+}
+
 void		drow_guide(t_fdf *fdf)
 {
 	if (!fdf->transform.guide_visible)
@@ -70,4 +95,5 @@ void		drow_guide(t_fdf *fdf)
 		draw_sides_guide(fdf);
 	}
 	put_projection(fdf);
+	put_angles(fdf);
 }
