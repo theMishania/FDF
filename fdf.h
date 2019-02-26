@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 19:44:33 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/23 10:33:09 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/26 20:10:27 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,10 @@ void			provider(int key, char *file_name);
 void			map_drawing(t_fdf *fdf);
 t_point			t_point_init(int x, int y, t_map *map_struct, t_fdf *fdf);
 
-int				drow_right(t_fdf *fdf, int i, int j, t_point main_point);
-int				drow_down(t_fdf *fdf, int i, int j, t_point main_point);
-void			drow_guide(t_fdf *fdf);
+int				draw_right(t_fdf *fdf, int i, int j, t_point main_point);
+int				draw_down(t_fdf *fdf, int i, int j, t_point main_point);
+
+void			draw_guide(t_fdf *fdf);
 
 void			put_point_to_image(char *image_data, int x, int y, int color);
 void			clear_image_data(char *image_data);

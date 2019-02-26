@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   guide_drawing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 19:48:58 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/25 09:46:18 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/26 22:16:15 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ static void draw_sides_guide(t_fdf *fdf)
 	put_string(fdf, 650, 160, "Press B to see bottomside");
 	put_string(fdf, 650, 180, "Press R ro see rightside");
 	put_string(fdf, 650, 200, "Press L to see leftside");
+	put_string(fdf, 650, 960,
+		fdf->transform.color_on ? "AltitudeGradientColor mode: On" :
+		"AltitudeGradientColor mode: Off");
 }
 
 static void put_projection(t_fdf *fdf)
@@ -45,32 +48,7 @@ static void put_projection(t_fdf *fdf)
 	}
 }
 
-// static int transform_to_dergrees(double angle)
-// {
-
-// }
-
-static void put_angles(t_fdf *fdf)
-{
-	int alpha;
-	int beta;
-	int gamma;
-
-	alpha = (int)(60 * (fdf->transform.alpha / M_PI));
-	beta = (int)(60 * (fdf->transform.beta / M_PI));
-	gamma = (int)(60 * (fdf->transform.gamma / M_PI));
-
-	put_string(fdf, 700, 900, "Rotation angles:");
-	put_string(fdf, 750, 920, "Alpha");
-	put_string(fdf, 750, 940, "Beta");
-	put_string(fdf, 750, 960, "Gamma");
-	put_string(fdf, 850, 920, ft_itoa(ABS(alpha * 3 % 360)));
-	put_string(fdf, 850, 940, ft_itoa(ABS(beta * 3 % 360)));
-	put_string(fdf, 850, 960, ft_itoa(ABS(gamma * 3 % 360)));
-	put_string(fdf, 450, 960, fdf->transform.color_on ? "Color: On" : "Color: Off");
-}
-
-void		drow_guide(t_fdf *fdf)
+void		draw_guide(t_fdf *fdf)
 {
 	if (!fdf->transform.guide_visible)
 		put_string(fdf, 40, 20, "Press H to show Info & Guide");
@@ -93,7 +71,6 @@ void		drow_guide(t_fdf *fdf)
 		put_string(fdf, 40, 240, "Press ESC to exit");
 		put_string(fdf, 40, 260, "Press H to hide Info & Guide");
 		draw_sides_guide(fdf);
+		put_projection(fdf);
 	}
-	put_projection(fdf);
-	put_angles(fdf);
 }

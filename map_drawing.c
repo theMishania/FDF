@@ -6,7 +6,7 @@
 /*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 19:23:37 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/21 20:08:10 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/26 20:09:39 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	map_drawing(t_fdf *fdf)
 		{
 			main_point = t_point_init(j, i, &(fdf->map_struct), fdf);
 			IF_DO_CONT((main_point.alt_255 == 1000), (j++));
-			IF_DO_CONT((!drow_right(fdf, i, j, main_point)), (j++));
-			IF_DO_CONT((!drow_down(fdf, i, j, main_point)), (j++));
+			IF_DO_CONT((!draw_right(fdf, i, j, main_point)), (j++));
+			IF_DO_CONT((!draw_down(fdf, i, j, main_point)), (j++));
 			j++;
 		}
 		i++;

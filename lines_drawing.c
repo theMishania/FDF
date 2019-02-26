@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line_drawing.c                                     :+:      :+:    :+:   */
+/*   lines_drawing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 20:06:38 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/21 20:08:06 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/26 20:09:30 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	line_drow_x(t_fdf *fdf, t_point f, t_point s)
+static void	line_draw_x(t_fdf *fdf, t_point f, t_point s)
 {
 	t_variables	vars;
 
@@ -37,7 +37,7 @@ static void	line_drow_x(t_fdf *fdf, t_point f, t_point s)
 	}
 }
 
-static void	line_drow_y(t_fdf *fdf, t_point f, t_point s)
+static void	line_draw_y(t_fdf *fdf, t_point f, t_point s)
 {
 	t_variables vars;
 
@@ -65,12 +65,12 @@ static void	line_drow_y(t_fdf *fdf, t_point f, t_point s)
 static void	line_drawing(t_fdf *fdf, t_point f, t_point s)
 {
 	if ((ABS(f.x - s.x)) >= (ABS(f.y - s.y)))
-		line_drow_x(fdf, f, s);
+		line_draw_x(fdf, f, s);
 	else
-		line_drow_y(fdf, f, s);
+		line_draw_y(fdf, f, s);
 }
 
-int			drow_right(t_fdf *fdf, int i, int j, t_point main)
+int			draw_right(t_fdf *fdf, int i, int j, t_point main)
 {
 	t_point right;
 
@@ -88,7 +88,7 @@ int			drow_right(t_fdf *fdf, int i, int j, t_point main)
 	return (1);
 }
 
-int			drow_down(t_fdf *fdf, int i, int j, t_point main)
+int			draw_down(t_fdf *fdf, int i, int j, t_point main)
 {
 	t_point down;
 

@@ -6,7 +6,7 @@
 /*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 19:02:32 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/21 20:11:01 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/26 20:07:58 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		provider(int key, char *file_name)
 	key_utils(&fdf, key);
 	map_drawing(&fdf);
 	mlx_put_image_to_window(fdf.mlx_ptr, fdf.win_ptr, fdf.image, 0, 0);
-	drow_guide(&fdf);
+	draw_guide(&fdf);
 	mlx_hook(fdf.win_ptr, 2, 1L << 0, key_press, (void*)0);
 	mlx_loop(fdf.mlx_ptr);
 }

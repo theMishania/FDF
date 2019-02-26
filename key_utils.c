@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cocummin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 18:24:02 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/23 10:32:17 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/26 21:04:10 by chorange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ static void	norme_beater(t_fdf *fdf, int key)
 	else if (key == 0x7B || key == 0x7C)
 	{
 		if (key == 0x7C)
-			fdf->transform.beta += (M_PI / 60);
+			fdf->transform.beta += M_PI / 60;
 		else
-			fdf->transform.beta -= (M_PI / 60);
+			fdf->transform.beta -= M_PI / 60;
 	}
 	else if (key == 0x7E || key == 0x7D)
 	{
 		if (key == 0x7E)
-			fdf->transform.gamma += (M_PI / 60);
+			fdf->transform.gamma += M_PI / 60;
 		else
-			fdf->transform.gamma -= (M_PI / 60);
+			fdf->transform.gamma -= M_PI / 60;
 	}
 }
 
@@ -67,9 +67,9 @@ static void	norminette_fight(t_fdf *fdf, int key)
 	else if (key == 0x56 || key == 0x58)
 	{
 		if (key == 0x58)
-			fdf->transform.alpha += (M_PI / 60);
+			fdf->transform.alpha += M_PI / 60;
 		else
-			fdf->transform.alpha -= (M_PI / 60);
+			fdf->transform.alpha -= M_PI / 60;
 	}
 	else if (key == 0x23 || key == 0x22 || key == 0x1F)
 		projection_changes(fdf, key);
