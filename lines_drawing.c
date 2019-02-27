@@ -6,12 +6,11 @@
 /*   By: cocummin <cocummin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 20:06:38 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/27 14:49:04 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/27 15:03:01 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
 
 static void	line_draw_x(t_fdf *fdf, t_point f, t_point s)
 {

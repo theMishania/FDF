@@ -6,19 +6,18 @@
 /*   By: cocummin <cocummin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 19:48:58 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/27 14:49:02 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/27 15:01:05 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-
-static void	put_string(t_fdf *fdf, int x, int y, char *string)
+static	void	put_string(t_fdf *fdf, int x, int y, char *string)
 {
 	mlx_string_put(fdf->mlx_ptr, fdf->win_ptr, x, y, 0xFFFFFF, string);
 }
 
-static void draw_sides_guide(t_fdf *fdf)
+static	void	draw_sides_guide(t_fdf *fdf)
 {
 	put_string(fdf, 650, 100, "Press F to see frontside");
 	put_string(fdf, 650, 120, "Press M to see backside");
@@ -31,12 +30,13 @@ static void draw_sides_guide(t_fdf *fdf)
 		"AltitudeGradientColor mode: Off");
 }
 
-static void put_projection(t_fdf *fdf)
+static	void	put_projection(t_fdf *fdf)
 {
 	if (fdf->transform.proj_type == 0)
 	{
-		if (fdf->transform.alpha == M_PI / 6 && fdf->transform.beta == -M_PI / 4 &&
-		fdf->transform.gamma == M_PI / 4)
+		if (fdf->transform.alpha == M_PI / 6 &&
+			fdf->transform.beta == -M_PI / 4 &&
+			fdf->transform.gamma == M_PI / 4)
 		{
 			put_string(fdf, 40, 960, "Projection Type: ISO");
 		}
@@ -49,7 +49,7 @@ static void put_projection(t_fdf *fdf)
 	}
 }
 
-void		draw_guide(t_fdf *fdf)
+void			draw_guide(t_fdf *fdf)
 {
 	if (!fdf->transform.guide_visible)
 		put_string(fdf, 40, 20, "Press H to show Info & Guide");

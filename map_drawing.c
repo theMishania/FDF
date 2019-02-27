@@ -6,12 +6,11 @@
 /*   By: cocummin <cocummin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 19:23:37 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/27 14:49:05 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/27 15:02:52 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
 
 void	map_drawing(t_fdf *fdf)
 {

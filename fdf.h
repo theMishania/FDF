@@ -6,14 +6,12 @@
 /*   By: cocummin <cocummin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 19:44:33 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/27 14:50:35 by cocummin         ###   ########.fr       */
+/*   Updated: 2019/02/27 15:03:41 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-
-
 
 # include <stdio.h>
 # include <stdlib.h>
