@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   key_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cocummin <cocummin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 18:24:02 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/26 21:04:10 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/27 14:49:03 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
 
 static void	projection_changes(t_fdf *fdf, int key)
 {

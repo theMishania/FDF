@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   map_drawing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cocummin <cocummin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 19:23:37 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/26 20:09:39 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/27 14:49:05 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
 
 void	map_drawing(t_fdf *fdf)
 {

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cocummin <cocummin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 19:19:53 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/26 21:56:41 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/27 14:49:05 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
 
 int		main(int ac, char **av)
 {

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lines_drawing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cocummin <cocummin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 20:06:38 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/26 20:09:30 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/27 14:49:04 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
 
 static void	line_draw_x(t_fdf *fdf, t_point f, t_point s)
 {

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   guide_drawing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chorange <chorange@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cocummin <cocummin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 19:48:58 by chorange          #+#    #+#             */
-/*   Updated: 2019/02/26 22:16:15 by chorange         ###   ########.fr       */
+/*   Updated: 2019/02/27 14:49:02 by cocummin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
 
 static void	put_string(t_fdf *fdf, int x, int y, char *string)
 {
