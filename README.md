@@ -7,8 +7,8 @@ Projections Types:
 Parallel projection
 ![parallel](https://github.com/theMishania/FDF/blob/master/ScreenShots/Parallel%20Projection.png)
 
-ISO projection
+# ISO projection
 ![iso](https://github.com/theMishania/FDF/blob/master/ScreenShots/Iso%20Projection.png)
 
-Central projection
+# Central projection
 ![central](https://github.com/theMishania/FDF/blob/master/ScreenShots/Central%20Projection.png)
